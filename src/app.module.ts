@@ -11,7 +11,7 @@ import { User } from './users/users.entity';
       {
         type: "sqlite",
         database: "db.sqlite",
-        entities: [User],
+        autoLoadEntities : true,
         synchronize: true
       }
     ),
