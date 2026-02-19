@@ -3,6 +3,26 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "email": "johndoe@outlook.com",
-    "password": "WorldsSafestPassword123"
+    "email": "khaled@outlook.com",
+    "password": "yf8/$?/9na?&wsf!/$7()*wq9cntqsqw"
 }
+
+### Update User
+PATCH http://localhost:3000/users/3
+Content-Type: application/json
+
+{
+    "email": "khaled@outlook.com",
+    "password": "yf8/$?/9na?&wsf!/$7()*wq9cntqsqw",
+    "firstName": "Khaled",
+    "lastName": "Abou Hechmeh"
+}
+
+### Get All Users
+GET http://localhost:3000/users
+
+### Get User By Id
+GET http://localhost:3000/users/3
+
+### Delete User By Id
+DELETE http://localhost:3000/users/2
