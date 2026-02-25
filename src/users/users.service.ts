@@ -18,6 +18,10 @@ export class UsersService {
     //a faire
     async findOne(id : number) {
       const user = await this.repo.findOneBy({id});
+
+      if(!user) {
+        return null
+      }
       return user;
     }
 
