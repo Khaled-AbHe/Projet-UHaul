@@ -1,9 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
+import { UserDto } from './dtos/user.dto';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
+// import { UseInterceptors,ClassSerializerInterceptor } from '@nestjs/common';
 
-@Controller('users')
+
+@Controller('auth')
 export class UserControllers {
 
     constructor(private service : UsersService) {}
@@ -26,6 +31,9 @@ export class UserControllers {
         return await this.service.deleteUserById(parseInt(id))
     }
 
+    // @UseInterceptors(ClassSerializerInterceptor)
+    // @UseInterceptors(new SerializeInterceptor(UserDto))
+    @Serialize(UserDto)
     @Get("/:id")
     async findUserById(@Param("id") id: string) {
         return await this.service.findUserById(parseInt(id))
