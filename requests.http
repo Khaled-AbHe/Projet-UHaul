@@ -1,14 +1,14 @@
 ### Create User
-POST http://localhost:3000/users
+POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "khaled@outlook.com",
-    "password": "yf8/$?/9na?&wsf!/$7()*wq9cntqsqw"
+    "email": "raag41qefrq4t3q4rg@gmail.com",
+    "password": "pswrd123"
 }
 
 ### Update User
-PATCH http://localhost:3000/users/3
+PATCH http://localhost:3000/auth/3
 Content-Type: application/json
 
 {
@@ -19,10 +19,10 @@ Content-Type: application/json
 }
 
 ### Get All Users
-GET http://localhost:3000/users
+GET http://localhost:3000/auth
 
 ### Get User By Id
-GET http://localhost:3000/users/3
+GET http://localhost:3000/auth/1
 
 ### Delete User By Id
-DELETE http://localhost:3000/users/2
+DELETE http://localhost:3000/auth/2
