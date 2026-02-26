@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Session, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Session } from '@nestjs/common';
 import { UsersService } from './services/users/users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -8,7 +8,7 @@ import { UserDto } from './dtos/user.dto';
 import { AuthService } from './services/auth/auth.service';
 
 @Controller('auth')
-export class UserControllers {
+export class UsersController {
 
     constructor(
         private userService : UsersService,
@@ -16,7 +16,7 @@ export class UserControllers {
     ) {}
 
     @Post('/signup')
-    createUser(@Body() body : CreateUserDto) {
+    signUp(@Body() body : CreateUserDto) {
         return this.authService.signUp(body.email, body.password)
     }
 
