@@ -1,24 +1,31 @@
-POST http://localhost:3000/users
+### test signup user with unique email
+POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "sara@hotmail.com",
-    "password": "mdp",
-    "name": "sara"
-}
-
-###
-POST http://localhost:3000/users
-Content-Type: application/json
-
-{
-    "email": "emile@gmail.com",
+    "email": "tt@hotmail.com",
     "password": "1234",
     "name": "emile"
 }
+
+
+###
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "ra@hotmail.com",
+    "password": "566"
+}
+
+###
+POST http://localhost:3000/users/signout
 
 ###
 GET http://localhost:3000/auth
 
 ###
 GET http://localhost:3000/auth/1
+
+###
+GET http://localhost:3000/auth/whoami

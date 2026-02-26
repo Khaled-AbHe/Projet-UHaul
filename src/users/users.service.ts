@@ -47,4 +47,9 @@ export class UsersService {
       Object.assign(user, attrs);
       return this.repo.save(user);
     }
+    
+    async findAllUserByEmail(email : string) {
+      const users = await this.repo.findBy({email});
+      return users;
+    }
 }
