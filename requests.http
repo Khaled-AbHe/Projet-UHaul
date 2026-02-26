@@ -1,11 +1,27 @@
-### Create User
+### Create User | Sign Up
 POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "raag41qefrq4t3q4rg@gmail.com",
-    "password": "pswrd123"
+    "email": "account5@outlook.com",
+    "password": "pswrd"
 }
+
+### Sign In User
+GET http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "account5@outlook.com",
+    "password": "pswrd"
+}
+
+### Sign Out User
+Post http://localhost:3000/auth/signout
+
+### Who Am I 
+GET http://localhost:3000/auth/whoami
+
 
 ### Update User
 PATCH http://localhost:3000/auth/3
