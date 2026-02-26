@@ -35,3 +35,26 @@ GET http://localhost:3000/auth/1
 
 ### all users
 GET http://localhost:3000/auth/
+
+### Test signup user with unique email
+POST http://localhost:3000/auth/signup
+content-type: application/json
+
+{
+    "email": "aaa@hotmail.com",
+    "password": "mdp"
+}
+
+### Test sign in
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+    "email": "aaa@hotmail.com",
+    "password": "mdp"
+}
+### test whoami
+GET http://localhost:3000/auth/whoami
+
+### test signout
+POST http://localhost:3000/auth/signout
