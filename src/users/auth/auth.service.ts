@@ -1,7 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, Session } from '@nestjs/common';
 import { UsersService } from '../users.service';
 import { randomBytes, scrypt as _scrypt} from 'crypto'; //pour généré notre salt
 import { promisify } from 'util'; //pour transfromer scrypt en fonction qui retourne promesse
+import { CurrentUser } from '../decorators/current-user.decorators';
 
 const scrypt = promisify(_scrypt);
 
@@ -57,4 +58,12 @@ export class AuthService {
         }
         return user;
     }
+
+    // whoAmI() {
+    //     if(session.userId == null) {
+    //         return 'pas de user connecté'
+    //     } else {
+    //         return session.findOne(session.userId);
+    //     }
+    // }
 }
