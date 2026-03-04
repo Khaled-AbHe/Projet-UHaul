@@ -7,8 +7,13 @@ import { UserDto } from './dtos/user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 // import { UseInterceptors,ClassSerializerInterceptor } from '@nestjs/common';
 import { AuthService } from './services/auth.service';
+import { User } from './user.entity';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
+
 
 @Controller('auth')
+@UseInterceptors(CurrentUserInterceptor)
 export class UserControllers {
 
     constructor(private service : UsersService, private authService : AuthService) {}
@@ -24,14 +29,11 @@ export class UserControllers {
             session.userId = user.id;
             return user;
         }
-
+    
+  
     @Get('/whoami')
-        whoAmI(@Session() session: any){
-            return session.userId == null ?
-            "Not connected" : 
-            this.service.findUserById(session.userId)
-            // const user = this.service.findUserById(session.userId)
-            // return user;
+        whoAmI(@CurrentUser() user: User){
+            return user;   
         }   
 
     @Post('/signout')
@@ -61,5 +63,7 @@ export class UserControllers {
     async findAllUsers() {
         return await this.service.findAllUsers()
     }
+    
+
     
 }
