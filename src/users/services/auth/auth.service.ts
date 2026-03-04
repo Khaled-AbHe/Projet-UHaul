@@ -46,4 +46,9 @@ export class AuthService {
         // returns the user if all is checks out
         return user
     }
+
+    // async whoAmI(userId: number) {
+    //     if (userId == null) throw new NotFoundException("No user is connected")
+    //     return await this.usersService.findUserById(userId)
+    // }
 }

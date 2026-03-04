@@ -1,17 +1,21 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Session } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Session, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './services/users/users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 // import { UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
-import { Serialize, /*SerializeInterceptor*/ } from './interceptors/serialize.interceptor';
+import { Serialize, /*SerializeInterceptor*/ } from '../interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './services/auth/auth.service';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { User } from './user.entity';
+import { CurrentUserInterceptor } from './interceptors/currentUser.interceptor';
 
 @Controller('auth')
+@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
 
     constructor(
-        private userService : UsersService,
+        private usersService : UsersService,
         private authService : AuthService
     ) {}
 
@@ -33,19 +37,19 @@ export class UsersController {
     }
 
     @Get("/whoami")
-    whoAmI(@Session() session: any) {
-        if (session.userId == null) throw new NotFoundException("No user is connected")
-        return this.userService.findUserById(session.userId)
+    whoAmI(@CurrentUser() user: User) {
+        return user
+        // return this.authService.whoAmI(user.id)
     }
 
     @Patch("/:id")
     updateUser(@Param("id") id: string, @Body() body : UpdateUserDto) {
-        return this.userService.updateUser(parseInt(id), body)
+        return this.usersService.updateUser(parseInt(id), body)
     }
 
     @Delete("/:id")
     deleteUserById(@Param("id") id: string) {
-        return this.userService.deleteUserById(parseInt(id))
+        return this.usersService.deleteUserById(parseInt(id))
     }
 
     // @UseInterceptors(ClassSerializerInterceptor)
@@ -53,12 +57,12 @@ export class UsersController {
     @Serialize(UserDto)
     @Get("/:id")
     findUserById(@Param("id") id: string) {
-        return this.userService.findUserById(parseInt(id))
+        return this.usersService.findUserById(parseInt(id))
     }
     
     @Get()
     findAllUsers() {
-        return this.userService.findAllUsers()
+        return this.usersService.findAllUsers()
     }
     
 }
