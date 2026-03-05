@@ -45,7 +45,7 @@ content-type: application/json
     "password": "mdp"
 }
 
-### Test sign in
+### Test sign in with ADMIN
 POST http://localhost:3000/auth/signin
 content-type: application/json
 
@@ -53,11 +53,82 @@ content-type: application/json
     "email": "aaa@hotmail.com",
     "password": "mdp"
 }
+
+### Test sign in with USER : ADMIN : FALSE
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+    "email": "mmm@hotmail.com",
+    "password": "mdp"
+}
+
 ### test whoami
 GET http://localhost:3000/auth/whoami
 
 ### test signout
 POST http://localhost:3000/auth/signout
 
+### Test guard for update user
+PATCH http://localhost:3000/auth/1
+
+//////
+/////
+////
+///
+// Admin guard test
+
+### Test signup user with unique email
+POST http://localhost:3000/auth/signup
+content-type: application/json
+
+{
+    "email": "abc@hotmail.com",
+    "password": "mdp"
+}
+
+### Test signup user with unique email
+POST http://localhost:3000/auth/signup
+content-type: application/json
+
+{
+    "email": "mmm@hotmail.com",
+    "password": "mdp"
+}
+
+### Test sign in
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+    "email": "abc@hotmail.com",
+    "password": "mdp"
+}
+
+### Test sign in with ADMIN
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+    "email": "aaa@hotmail.com",
+    "password": "mdp"
+}
+
+### Test sign in with USER : ADMIN : FALSE
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+    "email": "mmm@hotmail.com",
+    "password": "mdp"
+}
 
 
+### test whoami
+GET http://localhost:3000/auth/whoami
+
+### test signout
+POST http://localhost:3000/auth/signout
+
+###
+DELETE http://localhost:3000/auth/9

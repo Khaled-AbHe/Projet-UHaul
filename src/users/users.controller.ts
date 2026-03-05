@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Session, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Session, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './services/users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -10,6 +10,8 @@ import { AuthService } from './services/auth.service';
 import { User } from './user.entity';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { AdminGuard } from 'src/guards/admin-guard';
 
 
 @Controller('auth')
@@ -29,7 +31,8 @@ export class UserControllers {
             return user;
         }
     
-    @UseInterceptors(CurrentUserInterceptor)
+        
+    // @UseInterceptors(CurrentUserInterceptor)
     @Get('/whoami')
         whoAmI(@CurrentUser() user: User){
             return user;   
@@ -39,12 +42,14 @@ export class UserControllers {
         signOut(@Session() session: any){
             session.userId = null;
         }    
-        
+
+    @UseGuards(AuthGuard)  
     @Patch("/:id")
     async updateUser(@Param("id") id: string, @Body() body : UpdateUserDto) {
         return await this.service.updateUser(parseInt(id), body)
     }
 
+    @UseGuards(AdminGuard)
     @Delete("/:id")
     async deleteUserById(@Param("id") id: string) {
         return await this.service.deleteUserById(parseInt(id))
@@ -62,7 +67,4 @@ export class UserControllers {
     async findAllUsers() {
         return await this.service.findAllUsers()
     }
-    
-
-    
 }

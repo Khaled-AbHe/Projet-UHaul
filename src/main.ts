@@ -16,6 +16,7 @@ async function bootstrap() {
     forbidNonWhitelisted: true,
     transform: true,
   }))
+  // app.useGlobalGuards(new RolesGuard())
   // app.useGlobalInterceptors(
   //   new ClassSerializerInterceptor(app.get(Reflector))
   // )
