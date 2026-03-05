@@ -7,17 +7,18 @@ export class CurrentUserInterceptor implements NestInterceptor {
 
     constructor(private userService : UsersService) {}
 
-    intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
+    async intercept(context: ExecutionContext, next: CallHandler<any>): Promise<Observable<any>> {
         const request = context.switchToHttp().getRequest();
         
         const userId = request.session.userId;
+        // const {userId} = request.session || {};
         
         if (!userId) {
             console.log("il n'y a pas d'utilisateur connecté");
         } else {
-            const user = this.userService.findOne(userId);
+            const user = await this.userService.findOne(userId);
             
-            request.currentUser = user;
+            request.CurrentUser = user;
         }
 
         return next.handle();

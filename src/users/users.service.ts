@@ -1,4 +1,4 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Body, Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './users.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,8 +11,10 @@ export class UsersService {
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
     async create(email: string, password: string) {
-        await this.repo.create({email, password})
-        return this.repo.save({email, password});
+        //this.repo.create({email, password})
+        const user = await this.repo.save({email, password});
+        console.log(user);
+        return user
     }
 
     //a faire
@@ -51,5 +53,13 @@ export class UsersService {
     async findAllUserByEmail(email : string) {
       const users = await this.repo.findBy({email});
       return users;
+    }
+
+    async removeUser(id : number) {
+      const user = await this.repo.findOneBy({id});
+      if(!user) {
+        throw new NotFoundException('user not found');
+      }
+      return this.repo.remove(user);
     }
 }

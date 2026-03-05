@@ -3,9 +3,8 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "tt@hotmail.com",
-    "password": "1234",
-    "name": "emile"
+    "email": "john@hotmail.com",
+    "password": "01245"
 }
 
 
@@ -14,8 +13,8 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "ra@hotmail.com",
-    "password": "566"
+    "email": "john@hotmail.com",
+    "password": "01245"
 }
 
 ###
@@ -29,3 +28,10 @@ GET http://localhost:3000/auth/1
 
 ###
 GET http://localhost:3000/auth/whoami
+
+###
+PATCH http://localhost:3000/auth/1
+
+
+###
+DELETE http://localhost:3000/auth/1
