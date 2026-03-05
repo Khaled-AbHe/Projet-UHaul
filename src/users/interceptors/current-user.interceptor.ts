@@ -10,7 +10,7 @@ export class CurrentUserInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
         const request = context.switchToHttp().getRequest();
         
-        const {userId} = request.session.userId || {};
+        const userId = request.session.userId;
         
         if (!userId) {
             console.log("il n'y a pas d'utilisateur connecté");
