@@ -3,8 +3,9 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "account5@outlook.com",
-    "password": "pswrd"
+    "email": "isAdmin2@outlook.com",
+    "password": "pswrd",
+    "admin": true
 }
 
 ### Sign In User
@@ -12,7 +13,7 @@ GET http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "account5@outlook.com",
+    "email": "notAdmin@outlook.com",
     "password": "pswrd"
 }
 
@@ -37,7 +38,7 @@ Content-Type: application/json
 GET http://localhost:3000/auth
 
 ### Get User By Id
-GET http://localhost:3000/auth/1
+GET http://localhost:3000/auth/2
 
 ### Delete User By Id
 DELETE http://localhost:3000/auth/2

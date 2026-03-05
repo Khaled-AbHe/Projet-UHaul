@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Session, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Session, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './services/users/users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -8,24 +8,28 @@ import { UserDto } from './dtos/user.dto';
 import { AuthService } from './services/auth/auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './user.entity';
-import { CurrentUserInterceptor } from './interceptors/currentUser.interceptor';
+// import { CurrentUserInterceptor } from './interceptors/currentUser.interceptor';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { AdminGuard } from 'src/guards/admin.guard';
+import { SignInUserDto } from './dtos/signin-user.dto';
 
 @Controller('auth')
-@UseInterceptors(CurrentUserInterceptor)
+@UseGuards(AuthGuard)
+// @UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
-
+    
     constructor(
         private usersService : UsersService,
         private authService : AuthService
     ) {}
-
+    
     @Post('/signup')
     signUp(@Body() body : CreateUserDto) {
-        return this.authService.signUp(body.email, body.password)
+        return this.authService.signUp(body.email, body.password, body.admin)
     }
-
+    
     @Get('/signin')
-    async signIn(@Body() body : CreateUserDto, @Session() session : any) {
+    async signIn(@Body() body : SignInUserDto, @Session() session : any) {
         const user = await this.authService.signIn(body.email, body.password)
         session.userId = user.id
         return user
@@ -54,9 +58,11 @@ export class UsersController {
 
     // @UseInterceptors(ClassSerializerInterceptor)
     // @UseInterceptors(new SerializeInterceptor(UserDto))
+    @UseGuards(AdminGuard)
     @Serialize(UserDto)
     @Get("/:id")
     findUserById(@Param("id") id: string) {
+        console.log("User Controller")
         return this.usersService.findUserById(parseInt(id))
     }
     

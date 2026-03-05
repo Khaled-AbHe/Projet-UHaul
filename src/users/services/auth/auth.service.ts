@@ -9,19 +9,19 @@ const scrypt = promisify(_scrypt)
 export class AuthService {
     constructor(private usersService : UsersService) {}
 
-    async signUp(email: string, password: string) {
-        //1. check if email in db
+    async signUp(email: string, password: string, admin: boolean) {
+        // 1. check if email is in the db
         const user = await this.usersService.findUserByEmail(email)
         if (!!user) {
             throw new BadRequestException("Email already taken")
         }
-        //2. hash the password
+        // 2. create and hash the password
         const salt = randomBytes(8).toString("hex")
         const hash = (await scrypt(password, salt, 32)) as Buffer;
         const result = salt + "." + hash.toString("hex")
 
-        //3. creates and returns the new user
-        return await this.usersService.createUser(email, result)
+        // 3. creates and returns the new user
+        return await this.usersService.createUser(email, result, admin)
     }
 
     async signIn(email:string, password:string) {

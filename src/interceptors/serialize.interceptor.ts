@@ -1,7 +1,6 @@
 import { CallHandler, ExecutionContext, NestInterceptor, UseInterceptors } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-// import { UserDto } from "../dtos/user.dto";
 import { plainToClass } from "class-transformer";
 
 interface ClassConstrcutor {
@@ -21,6 +20,7 @@ export class SerializeInterceptor implements NestInterceptor {
 
         // Context is the representation of the route 
         // Next is the reprentation of the handler
+        //  - A handler is a function or method responsible for processing specific incoming events or requests within the application
         
         return next.handle().pipe(
             map((data : any) => {

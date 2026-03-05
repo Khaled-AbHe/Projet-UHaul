@@ -3,7 +3,6 @@ import { Exclude } from "class-transformer";
 
 @Entity()
 export class User {
-    
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -19,4 +18,7 @@ export class User {
 
     @Column({ nullable: true })
     lastName: string
+
+    @Column({default: false})
+    admin:boolean
 }
