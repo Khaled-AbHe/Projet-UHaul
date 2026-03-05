@@ -13,7 +13,6 @@ import { CurrentUserInterceptor } from './interceptors/current-user.interceptor'
 
 
 @Controller('auth')
-@UseInterceptors(CurrentUserInterceptor)
 export class UserControllers {
 
     constructor(private service : UsersService, private authService : AuthService) {}
@@ -30,7 +29,7 @@ export class UserControllers {
             return user;
         }
     
-  
+    @UseInterceptors(CurrentUserInterceptor)
     @Get('/whoami')
         whoAmI(@CurrentUser() user: User){
             return user;   
