@@ -3,9 +3,9 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "isAdmin2@outlook.com",
-    "password": "pswrd",
-    "admin": true
+    "type": "Client",
+    "email": "client1@outlook.com",
+    "password": "pswrd"
 }
 
 ### Sign In User
@@ -13,7 +13,7 @@ GET http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "notAdmin@outlook.com",
+    "email": "admin1@outlook.com",
     "password": "pswrd"
 }
 
@@ -38,7 +38,50 @@ Content-Type: application/json
 GET http://localhost:3000/auth
 
 ### Get User By Id
-GET http://localhost:3000/auth/2
+GET http://localhost:3000/auth/1
 
 ### Delete User By Id
 DELETE http://localhost:3000/auth/2
+
+################# Vehicles
+
+### Create Vehicle
+POST http://localhost:3000/vehicles/create
+Content-Type: application/json
+
+{
+    "type": "Van",
+    "model": "random",
+    "carryingSpace": 50,
+    "costPerKm": 1.2,
+    "maxItemHeight": 2
+}
+
+### Get All Vehicles
+GET http://localhost:3000/vehicles/all
+
+### Get All Trucks
+GET http://localhost:3000/vehicles/trucks
+
+### Get All Vans
+GET http://localhost:3000/vehicles/vans
+
+################# Locations
+
+### Create Location
+POST http://localhost:3000/locations/create
+Content-Type: application/json
+
+{
+    "depotName": "rand123",
+    "lon": 40,
+    "lat": 50
+}
+
+### Get All Locations
+GET http://localhost:3000/locations/all
+
+################# Carts
+
+### Get All Carts
+GET http://localhost:3000/carts/all

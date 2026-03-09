@@ -1,13 +1,16 @@
-import { IsEmail, IsString, IsNotEmpty, IsBoolean } from "class-validator";
+import { IsEmail, IsString, IsNotEmpty, IsEnum } from 'class-validator';
+import { UserType } from '../users.enum';
 
 export class CreateUserDto {
-    @IsEmail()
-    email: string;
+  @IsEnum(UserType)
+  @IsNotEmpty()
+  type: UserType;
 
-    @IsString()
-    @IsNotEmpty()
-    password: string
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
 
-    @IsBoolean()
-    admin: boolean
+  @IsString()
+  @IsNotEmpty()
+  password: string;
 }
