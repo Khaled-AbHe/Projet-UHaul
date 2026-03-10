@@ -17,9 +17,6 @@ export class CartsController {
     @Query('type') type: string,
     @Query('amount', ParseIntPipe) amount: number,
   ) {
-    if (type == 'creditcard')
-      return this.cartsService.payForCart(PaymentType.CREDIT_CARD, amount);
-    else if (type == 'paypal')
-      return this.cartsService.payForCart(PaymentType.PAYPAL, amount);
+    return this.cartsService.payForCart(type, amount);
   }
 }

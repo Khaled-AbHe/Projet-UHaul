@@ -19,21 +19,27 @@ export class VehiclesService implements Factory {
   async factoryCreate(data: CreateVehicleDto) {
     switch (data.type) {
       case VehicleType.TRUCK:
+
         if (!!data.maxItemHeight)
           throw new BadRequestException(
             'maxItemHeight isnt valid property for Truck',
           );
         else if (!data.maxWeight)
           throw new BadRequestException('maxWeight missing');
+
         return await this.truckRepo.save(this.truckRepo.create(data));
+
       case VehicleType.VAN:
+
         if (!!data.maxWeight)
           throw new BadRequestException(
             'maxWeight isnt valid property for Van',
           );
         else if (!data.maxItemHeight)
           throw new BadRequestException('maxItemHeight missing');
+
         return await this.vanRepo.save(this.vanRepo.create(data));
+
       default:
         throw new BadRequestException('Invalid Vehicle Type');
     }

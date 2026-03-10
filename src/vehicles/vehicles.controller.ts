@@ -8,7 +8,7 @@ export class VehiclesController {
 
   @Post('/create')
   createVehicle(@Body() body: CreateVehicleDto) {
-    return this.vehiclesService.factoryCreate({ ...body });
+    return this.vehiclesService.factoryCreate(body);
   }
 
   @Get('/all')

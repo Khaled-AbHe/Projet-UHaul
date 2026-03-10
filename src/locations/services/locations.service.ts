@@ -10,7 +10,7 @@ export class LocationsService {
   constructor(@InjectRepository(Location) private repo: Repository<Location>) {}
 
   async createLocation(data: CreateLocationDto) {
-    return await this.repo.save(this.repo.create({ ...data }));
+    return await this.repo.save(this.repo.create(data));
   }
 
   async findAllLocations() {

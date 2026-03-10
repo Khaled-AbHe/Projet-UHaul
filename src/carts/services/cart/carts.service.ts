@@ -18,7 +18,7 @@ export class CartsService {
     return await this.repo.find();
   }
 
-  payForCart(method: PaymentType, amount: number) {
+  payForCart(method: string, amount: number) {
     if (method == PaymentType.CREDIT_CARD)
       this.paymentService.setStrategy(new CreditCardStrategy());
     else if (method == PaymentType.PAYPAL)
