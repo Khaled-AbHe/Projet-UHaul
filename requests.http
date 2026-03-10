@@ -85,3 +85,9 @@ GET http://localhost:3000/locations/all
 
 ### Get All Carts
 GET http://localhost:3000/carts/all
+
+### Pay with Credit Card
+POST http://localhost:3000/carts/pay?type=creditcard&amount=100
+
+### Pay with Paypal
+POST http://localhost:3000/carts/pay?type=paypal&amount=100
